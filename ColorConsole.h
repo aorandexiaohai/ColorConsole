@@ -46,3 +46,9 @@ class ColorConsole : public std::stringstream
 };
 } // namespace CC
 #define CConsole(c) ::CC::ColorConsole(::CC::Color::c)
+
+#define CCRED CConsole(RED)
+#define CCGREEN CConsole(GREEN)
+#define CCBLUE CConsole(BLUE)
+#define CCWHITE CConsole(WHITE)
+#define CCONSOLE(c) CConsole(c)

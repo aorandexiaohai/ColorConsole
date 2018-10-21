@@ -2,7 +2,9 @@
 
 #include <sstream>
 #include <iostream>
+#if defined(WIN32) || defined(_WIN32)
 #include <windows.h>
+#endif
 
 namespace CC
 {
@@ -26,6 +28,7 @@ class ColorConsole : public std::stringstream
     }
     ~ColorConsole()
     {
+        #if defined(WIN32) || defined(_WIN32)
         HANDLE handle;
         handle = GetStdHandle(STD_OUTPUT_HANDLE);
         if (color == RED)
@@ -42,6 +45,10 @@ class ColorConsole : public std::stringstream
         std::cout.flush();
         //reback to old color
         SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        #else
+        std::cout << this->rdbuf();
+        std::cout.flush();
+        #endif
     }
 };
 } // namespace CC
